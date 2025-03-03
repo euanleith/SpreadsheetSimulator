@@ -1,0 +1,27 @@
+table, td, th {
+    border: 1px solid;
+}
+
+td, th {
+    overflow: hidden;
+}
+
+td:has(input) {
+    text-align: center;
+    padding: 0;
+}
+
+table td input {
+    border: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+th {
+    background-color: lightgrey;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
