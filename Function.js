@@ -54,7 +54,7 @@ class Function {
      * @param table
      * @param rowIndex
      */
-    attach(inputCell, table, rowIndex) {
+    attach(table, srcInputCell, timer) {
         throw 'Method attach() must be implemented by subclass';
     }
 }

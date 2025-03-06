@@ -1,6 +1,15 @@
 class Table {
     constructor() {
         this.table = document.getElementById('table');
+        this.timer = new Timer(5, () => this.onTimeout(this.table));
+        this.timer.start();
+    }
+
+    onTimeout(table) {
+        alert("Out of time!"); // todo don't do this
+
+        let cells = table.querySelectorAll('input');
+        cells.forEach(input => input.disabled = true);
     }
 
     addHeader(value) {
@@ -23,7 +32,7 @@ class Table {
         if (!editable) inputCell.readOnly = true;
 
         if (func != null) {
-            func.attach(this.table, inputCell, rowIndex);
+            func.attach(this.table, inputCell, this.timer);
         }
 
         td.appendChild(inputCell);

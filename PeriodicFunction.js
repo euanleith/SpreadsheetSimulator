@@ -18,8 +18,9 @@ class PeriodicFunction extends Function {
      * @param table
      * @param srcInputCell
      */
-    attach(table, srcInputCell) {
-        setInterval(() => {
+    attach(table, srcInputCell, timer) {
+        let intervalId = setInterval(() => {
+            if (!timer.active) clearInterval(intervalId);
             this.map(table, srcInputCell);
         }, this.interval);
     }

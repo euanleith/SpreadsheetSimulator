@@ -17,7 +17,7 @@ class EventFunction extends Function {
      * @param table
      * @param srcInputCell
      */
-    attach(table, srcInputCell) {
+    attach(table, srcInputCell, timer) {
         srcInputCell.addEventListener('input', () => {
             this.map(table, srcInputCell);
         });
