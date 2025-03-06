@@ -1,15 +1,6 @@
 class Table {
     constructor() {
         this.table = document.getElementById('table');
-        this.timer = new Timer(5, () => this.onTimeout(this.table));
-        this.timer.start();
-    }
-
-    onTimeout(table) {
-        alert("Out of time!"); // todo don't do this
-
-        let cells = table.querySelectorAll('input');
-        cells.forEach(input => input.disabled = true);
     }
 
     addHeader(value) {

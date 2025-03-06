@@ -24,4 +24,12 @@ th {
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.hgroup {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
 }
