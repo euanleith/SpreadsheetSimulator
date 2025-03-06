@@ -3,8 +3,8 @@ class Timer {
     constructor(length, onTimeout) {
         this.timer = document.getElementById('timer');
         this.onTimeout = onTimeout;
-        this.remainingTime = length;
-        this.active = true;
+        this.length = length;
+        this.reset();
     }
 
     start() {
@@ -21,5 +21,10 @@ class Timer {
             this.onTimeout();
             this.active = false;
         }
+    }
+
+    reset() {
+        this.remainingTime = this.length;
+        this.active = true;
     }
 }

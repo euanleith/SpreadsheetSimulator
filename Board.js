@@ -3,15 +3,12 @@ class Board {
         this.table = new Table();
         this.timer = new Timer(gameLength, () => this.onTimeout());
         this.table.timer = this.timer; // todo better way?
+        this.newGameButton = new NewGameButton(() => {
+            this.reset();
+            this.start();
+        });
 
-        // example setup
-        this.table.addColumn('Glorbo', [0, 1, 2], null, false); // todo maybe first row should always be incrementing down, and at harder levels it goes down faster
-        this.table.addColumn('Frimbus', [1, 2, 3], new EventFunction((value, mapInput) => {
-            mapInput.value *= value;
-        }, 0));
-        this.table.addColumn('Shimp', [10, 20, 30], new PeriodicFunction((value, mapInput) => {
-            mapInput.value -= value;
-        }, 0));
+        this.reset();
     }
 
     onTimeout() {
@@ -23,5 +20,10 @@ class Board {
 
     start() {
         this.timer.start();
+    }
+
+    reset() {
+        this.timer.reset();
+        this.table.reset();
     }
 }

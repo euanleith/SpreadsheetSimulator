@@ -39,4 +39,18 @@ class Table {
             this.addRow(values[row], row, func, editable);
         }
     }
+
+    // todo this will eventually randomly generate new cells, hardcoding for now
+    reset() {
+        this.table.replaceChildren(); // remove existing cells
+
+        // example setup
+        this.addColumn('Glorbo', [0, 1, 2], null, false); // todo maybe first row should always be incrementing down, and at harder levels it goes down faster
+        this.addColumn('Frimbus', [1, 2, 3], new EventFunction((value, mapInput) => {
+            mapInput.value *= value;
+        }, 0));
+        this.addColumn('Shimp', [10, 20, 30], new PeriodicFunction((value, mapInput) => {
+            mapInput.value -= value;
+        }, 0));
+    }
 }
