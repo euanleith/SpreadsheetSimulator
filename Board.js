@@ -2,7 +2,9 @@ class Board {
     constructor(gameLength) {
         this.table = new Table();
         this.timer = new Timer(gameLength, () => this.onTimeout());
+        this.score = new Score();
         this.table.timer = this.timer; // todo better way?
+        this.table.score = this.score; // todo better way?
         this.newGameButton = new NewGameButton(() => {
             this.reset();
             this.start();

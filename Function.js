@@ -42,7 +42,8 @@ class Function {
             if (tgtInputCell) {
                 let cont = this.applyCommon(srcInputCell, tgtInputCell);
                 if (cont) {
-                    tgtInputCell.value = this.func(parseFloat(srcInputCell.value), parseFloat(tgtInputCell.value));
+                    tgtInputCell.setAttribute('value', this.func(parseInt(srcInputCell.value), parseInt(tgtInputCell.value)));
+                    tgtInputCell.dispatchEvent(new Event('input')); // manually firing input event  // todo is this bad
                 }
             }
         }

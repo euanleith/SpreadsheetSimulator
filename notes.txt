@@ -1,0 +1,11 @@
+score
+    maybe score should be its own column? trying the get the values in the results column to equal those? or be greater than those? idk...
+    could be its own column, and player only have to get one cell equal at a time, i.e. not the whole column at once. then a new one would appear
+        then could have strategy around choosing which cells to go for, getting multiple simultaneously, and not focusing too much on one and messing up all your others, and could line them up so that one change brings multiple closer to the desired value
+        and then score would just be the number of cells completed
+        could even steal from tetris and have it so that in versus mode, any time one player gets one, it messes up the other player. and it messes them up more when multiple are gotten simultaneously
+        and so maybe for the writeable columns, you can only change the whole column, not just one value... idk
+        could have a terrible mode where all values in this column change every time one connection is made. this would make planning impossible, so it might just be flat out worse. but maybe it would require faster responses idk
+        could extend this to having multiple result columns which all have to be equal to their corresponding score columns for that row to be completed
+    so this is only one way of doing score, im sure there's others; is this the best?
+then extend to pve/pvp
