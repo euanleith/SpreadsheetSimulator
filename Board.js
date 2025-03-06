@@ -7,8 +7,6 @@ class Board {
             this.reset();
             this.start();
         });
-
-        this.reset();
     }
 
     onTimeout() {
