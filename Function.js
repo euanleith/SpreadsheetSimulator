@@ -41,7 +41,9 @@ class Function {
             let tgtInputCell = tgtCell.getElementsByTagName('input')[0];
             if (tgtInputCell) {
                 let cont = this.applyCommon(srcInputCell, tgtInputCell);
-                if (cont) this.func(srcInputCell.value, tgtInputCell);
+                if (cont) {
+                    tgtInputCell.value = this.func(parseFloat(srcInputCell.value), parseFloat(tgtInputCell.value));
+                }
             }
         }
     }

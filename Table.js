@@ -45,12 +45,13 @@ class Table {
         this.table.replaceChildren(); // remove existing cells
 
         // example setup
+//        this.addColumn('AHHHH', [5, 6, 7], null, false);
         this.addColumn('Glorbo', [0, 1, 2], null, false); // todo maybe first row should always be incrementing down, and at harder levels it goes down faster
-        this.addColumn('Frimbus', [1, 2, 3], new EventFunction((value, mapInput) => {
-            mapInput.value *= value;
+        this.addColumn('Frimbus', [1, 2, 3], new EventFunction((src, tgt) => {
+            return tgt + src;
         }, 0));
-        this.addColumn('Shimp', [10, 20, 30], new PeriodicFunction((value, mapInput) => {
-            mapInput.value -= value;
+        this.addColumn('Shimp', [10, 20, 30], new PeriodicFunction((src, tgt) => {
+            return tgt - src;
         }, 0));
     }
 }
