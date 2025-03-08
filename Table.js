@@ -10,6 +10,34 @@ class Table {
         return th;
     }
 
+    /**
+     * Key down event triggered while an input is selected.
+     * Used for keyboard navigation of the table.
+     * @param event
+     */
+    onKeyDown(event) {
+        if (event.key === 'Enter') {
+            let cell = event.target.closest("td");
+            let row = cell.closest("tr");
+            let nextRow = this.table.rows[row.rowIndex+1];
+            let nextCol = this.table.rows[0].cells[cell.cellIndex+1];
+            if (nextRow) {
+                nextRow.cells[cell.cellIndex].querySelector('input')?.focus();
+            } else if (nextCol) {
+                nextCol.querySelector('input')?.focus();
+            }
+        }
+    }
+
+    /**
+     * Event triggered on focus for an input.
+     * Used for keyboard navigation of the table.
+     * @param event
+     */
+    onFocus(event) {
+        event.target.select(); // select contents of cell
+    }
+
     addRow(value, rowIndex, func=null, editable=true) {
         let tr = document.getElementById('row' + rowIndex);
         if (tr == null) {
@@ -21,6 +49,9 @@ class Table {
         inputCell.setAttribute('type', 'number');
         inputCell.setAttribute('value', value);
         if (!editable) inputCell.readOnly = true;
+
+        inputCell.addEventListener('keydown', (event) => this.onKeyDown(event));
+        inputCell.addEventListener('focus', (event) => this.onFocus(event));
 
         if (func != null) {
             func.attach(this.table, inputCell, this.timer);
@@ -90,8 +121,8 @@ class Table {
         this.addColumn('Frimbus', [1, 2, 3], new EventFunction((src, tgt) => {
             return tgt + src;
         }, 1));
-//        this.addColumn('Shimp', [10, 20, 30], new PeriodicFunction((src, tgt) => {
-//            return tgt - src;
-//        }, 1));
+        this.addColumn('Shimp', [1, 2, 3], new PeriodicFunction((src, tgt) => {
+            return tgt - src;
+        }, 1));
     }
 }
