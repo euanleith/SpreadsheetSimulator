@@ -1,6 +1,30 @@
 class Table {
     constructor() {
         this.table = document.getElementById('table');
+        this.focus = null;
+        document.addEventListener('keydown', (event) => this.onKeyDown(event));
+        document.addEventListener('keyup', (event) => this.onKeyUp(event));
+        document.addEventListener('click', (event) => this.onClick(event));
+    }
+
+    // todo don't love these
+    onKeyDown(event) {
+        if (event.key === 'Shift') {
+            this.shiftPressed = true;
+        }
+    }
+
+    onKeyUp(event) {
+        if (event.key === 'Shift') {
+            this.shiftPressed = false;
+        }
+    }
+
+    onClick(event) {
+        if (event.target === document.documentElement) {
+            document.activeElement.blur();
+            this.deselectAllCells();
+        }
     }
 
     addHeader(value) {
@@ -15,10 +39,14 @@ class Table {
      * Used for keyboard navigation of the table.
      * @param event
      */
-    onKeyDown(event) {
+    onKeyDownInput(event) {
         if (event.key === 'Enter') {
-            let cell = event.target.closest("td");
-            let row = cell.closest("tr");
+            // todo i don't like that i have to keep putting these everywhere; is there a better way?
+            this.deselectAllCells();
+            this.focus?.input.removeEventListener('input', this.focus.listener);
+
+            let cell = event.target.closest('td');
+            let row = cell.closest('tr');
             let nextRow = this.table.rows[row.rowIndex+1];
             let nextCol = this.table.rows[0].cells[cell.cellIndex+1];
             if (nextRow) {
@@ -34,8 +62,66 @@ class Table {
      * Used for keyboard navigation of the table.
      * @param event
      */
-    onFocus(event) {
-        event.target.select(); // select contents of cell
+    onFocusInput(event) {
+        if (this.shiftPressed && this.focus) {
+            this.focus.input.focus(); // don't change focus if selecting group
+        } else {
+            let cell = event.target.closest('td');
+            let row = cell.closest('tr');
+            this.focus?.input.removeEventListener('input', this.focus.listener);
+            // todo maybe make this its own class, with removeListener(), listener(start, end), etc.
+            this.focus = {
+                row: row.rowIndex,
+                col: cell.cellIndex,
+                input: event.target
+            };
+
+            event.target.select(); // select entire contents of cell
+        }
+    }
+
+    onClickInput(event) {
+        this.deselectAllCells();
+        let cell = event.target.closest('td');
+        let row = cell.closest('tr');
+        if (event.shiftKey && this.focus) {
+            // select entire contents of first focused cell
+            this.focus.input.select();
+
+            // make cells appear selected
+            let startRow = Math.min(this.focus.row, row.rowIndex);
+            let endRow = Math.max(this.focus.row, row.rowIndex);
+            let startCol = Math.min(this.focus.col, cell.cellIndex);
+            let endCol = Math.max(this.focus.col, cell.cellIndex);
+            for (let row = startRow; row <= endRow; row++) {
+                for (let col = startCol; col <= endCol; col++) {
+                    let input = this.table.rows[row].cells[col].querySelector('input');
+                    input.classList.add('selected');
+                }
+            }
+
+            // update values of cells on input
+            if (this.focus.listener) this.focus.input.removeEventListener('input', this.focus.listener); // todo might need to do this too
+            // todo move
+            let listener = (event) => {
+                for (let row = startRow; row <= endRow; row++) {
+                    for (let col = startCol; col <= endCol; col++) {
+                        let input = this.table.rows[row].cells[col].querySelector('input');
+                        input.setAttribute('value', event.target.value); // todo spreadsheets don't actually do this normally...
+                        input.value = event.target.value; // todo why do i have to do this? if i don't, there's a bug: e.g. select a 2x2 group and change them. then select a different first cell, then shift click the original first cell and change them. everything in the group but the original first cell changes.
+                    }
+                }
+            };
+            this.focus.input.addEventListener('input', listener);
+            this.focus.listener = listener;
+        }
+    }
+
+    deselectAllCells() {
+        let inputs = this.table.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.classList.remove('selected');
+        });
     }
 
     addRow(value, rowIndex, func=null, editable=true) {
@@ -50,8 +136,9 @@ class Table {
         inputCell.setAttribute('value', value);
         if (!editable) inputCell.readOnly = true;
 
-        inputCell.addEventListener('keydown', (event) => this.onKeyDown(event));
-        inputCell.addEventListener('focus', (event) => this.onFocus(event));
+        inputCell.addEventListener('keydown', (event) => this.onKeyDownInput(event));
+        inputCell.addEventListener('focus', (event) => this.onFocusInput(event));
+        inputCell.addEventListener('click', (event) => this.onClickInput(event));
 
         if (func != null) {
             func.attach(this.table, inputCell, this.timer);

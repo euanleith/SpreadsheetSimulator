@@ -2,10 +2,31 @@ score
     maybe score should be its own column? trying the get the values in the results column to equal those? or be greater than those? idk...
     could be its own column, and player only have to get one cell equal at a time, i.e. not the whole column at once. then a new one would appear
         then could have strategy around choosing which cells to go for, getting multiple simultaneously, and not focusing too much on one and messing up all your others, and could line them up so that one change brings multiple closer to the desired value
+            and there could be strategy around effectively creating your own functions using the periodic functions to, say, go back and forth, causing the result to cross over all possible values of the desired result
+                maybe the desired results should follow some patterns to make this more interesting/viable? e.g. always goes from negative to positive and back; or always increases by at least 10; or whatever.
+                    oh! and that function could be learned just like the column functions.
+                    oh! oh! and those functions could be different for each row instead of each column. then there would be a strategy of setting up different periodic functions for each row to align with the different row functions of the desired results
+                    (and remember there's still new columns being added, which might mess up your current system)
+                        could also increase number of rows over time? idk if that adds much... but maybe
+                    and if these functions for the desired results rows are predictable, it would be a case of trying to create your own function from the other columns which best matches this function
         and then score would just be the number of cells completed
         could even steal from tetris and have it so that in versus mode, any time one player gets one, it messes up the other player. and it messes them up more when multiple are gotten simultaneously
         and so maybe for the writeable columns, you can only change the whole column, not just one value... idk
         could have a terrible mode where all values in this column change every time one connection is made. this would make planning impossible, so it might just be flat out worse. but maybe it would require faster responses idk
         could extend this to having multiple result columns which all have to be equal to their corresponding score columns for that row to be completed
     so this is only one way of doing score, im sure there's others; is this the best?
-then extend to pve/pvp
+
+misc.
+    could have a column function which changes the interval of another periodic function, i.e. makes it faster/slower
+
+todo
+    better movement controls
+        shift to go right 1 cell / built in
+        enter to go down 1 cell /
+        make shifting focus to a cell select the contents, so they can be immediately replaced /
+        shift click to select contiguous group of cells /
+        command click to add to non-contiguous group of cells
+        navigation with arrow keys
+        copy/paste
+    maintain high scores
+    pve/pvp

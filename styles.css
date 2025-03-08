@@ -33,3 +33,9 @@ table {
     justify-content: flex-start;
     gap: 10px;
 }
+
+table td input.selected, input:focus {
+    outline: none;
+    background-color: lightblue;
+/*    background-color: #f0f8ff;*/
+}
