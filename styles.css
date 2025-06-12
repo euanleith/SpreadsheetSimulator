@@ -39,3 +39,7 @@ table td input.selected, input:focus {
     background-color: lightblue;
 /*    background-color: #f0f8ff;*/
 }
+
+.static {
+    pointer-events: none
+}

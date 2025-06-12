@@ -1,21 +1,20 @@
 class Score {
     constructor() {
         this.obj = document.getElementById('score');
-        this.score = 0;
-        this.updateText();
+        this.reset();
     }
 
-    updateText() {
-        this.obj.innerHTML = "Score: " + this.score;
+    update() {
+        this.obj.innerHTML = "Score: " + this.value;
     }
 
     add(amount=1) {
-        this.score += amount;
-        this.updateText();
+        this.value += amount;
+        this.update();
     }
 
     reset() {
-        this.score = 0;
-        this.updateText();
+        this.value = 0;
+        this.update();
     }
 }

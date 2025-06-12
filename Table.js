@@ -7,7 +7,7 @@ class Table {
         document.addEventListener('click', (event) => this.onClick(event));
     }
 
-    // todo don't love these
+    // todo don't love these global events
     onKeyDown(event) {
         if (event.key === 'Shift') {
             this.shiftPressed = true;
@@ -70,6 +70,7 @@ class Table {
             let row = cell.closest('tr');
             this.focus?.input.removeEventListener('input', this.focus.listener);
             // todo maybe make this its own class, with removeListener(), listener(start, end), etc.
+            //  maybe even have separate class for user interaction. or, like, there's table the ui element, and table the functional object
             this.focus = {
                 row: row.rowIndex,
                 col: cell.cellIndex,
@@ -198,6 +199,7 @@ class Table {
 
     // todo this will eventually randomly generate new cells, hardcoding for now
     reset() {
+        this.score.reset();
         this.table.replaceChildren(); // remove existing cells
 
         // example setup

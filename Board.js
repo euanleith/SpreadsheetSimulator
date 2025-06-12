@@ -3,6 +3,7 @@ class Board {
         this.table = new Table();
         this.timer = new Timer(gameLength, () => this.onTimeout());
         this.score = new Score();
+        this.highScore = new HighScore();
         this.table.timer = this.timer; // todo better way?
         this.table.score = this.score; // todo better way?
         this.newGameButton = new NewGameButton(() => {
@@ -13,6 +14,8 @@ class Board {
 
     onTimeout() {
         alert("Out of time!"); // todo don't do this
+
+        this.highScore.set(this.table.score.value);
 
         let cells = this.table.table.querySelectorAll('input');
         cells.forEach(input => input.disabled = true);
